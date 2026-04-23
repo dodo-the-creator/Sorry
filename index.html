@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffdde1, #fccb90);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0%
+            }
+
+            50% {
+                background-position: 100%
+            }
+
+            100% {
+                background-position: 0%
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        /* pages */
+        .page {
+            display: none;
+            text-align: center;
+        }
+
+        .active {
+            display: block;
+            animation: fade 1s ease;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* cards */
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        /* buttons */
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .next {
+            background: #3742fa;
+            color: white;
+        }
+
+        .yes {
+            background: #2ed573;
+            color: white;
+        }
+
+        .no {
+            background: #ff4757;
+            color: white;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        #buttons {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 200px;
+            align-items: center;
+        }
+
+        /* floating hearts */
+        .heart {
+            position: fixed;
+            color: rgba(255, 255, 255, 0.6);
+            animation: float 6s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh);
+            }
+
+            to {
+                transform: translateY(-10vh);
+            }
+        }
+
+        /* confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: 0;
+            animation: fall 3s linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+
+        img {
+            width: 180px;
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- floating hearts -->
+    <script>
+        for (let i = 0; i < 30; i++) {
+            let h = document.createElement("div");
+            h.className = "heart";
+            h.innerHTML = "❤️";
+            h.style.left = Math.random() * 100 + "vw";
+            h.style.fontSize = (Math.random() * 20 + 10) + "px";
+            h.style.animationDuration = (Math.random() * 5 + 5) + "s";
+            document.body.appendChild(h);
+        }
+    </script>
+
+    <div class="container">
+
+        <!-- PAGE 1 -->
+        <div class="page active">
+            <h1>Hey Doodie❤️</h1>
+            <button class="next" onclick="nextPage()">Start</button>
+        </div>
+
+        <!-- PAGE 2 -->
+        <div class="page">
+            <h2>I’m Sorry 💔</h2>
+            <div class="card">I know I hurt you and I truly regret it.</div>
+            <div class="card">I want to be better for you.</div>
+            <button class="next" onclick="nextPage()">Next</button>
+        </div>
+
+        <!-- PAGE 3 -->
+        <div class="page">
+            <h2>Please Forgive Me 🧸</h2>
+
+            <div class="card">
+                <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
+
+                <p>I’m really sorry… please give me one chance.</p>
+
+                <div id="buttons">
+                    <button class="yes" onclick="forgive()">Yes ❤️</button>
+                    <button class="no" onclick="multiplyYes()">No 😢</button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PAGE 4 -->
+        <div class="page">
+            <h2>Thank You ❤️</h2>
+            <div class="card">This means everything to me.</div>
+        </div>
+
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const pages = document.querySelectorAll(".page");
+
+        function nextPage() {
+            pages[currentPage].classList.remove("active");
+            currentPage++;
+            pages[currentPage].classList.add("active");
+        }
+
+        function forgive() {
+            createConfetti();
+            nextPage();
+        }
+
+        function multiplyYes() {
+    const container = document.getElementById("buttons");
+    const yesButtons = container.querySelectorAll(".yes");
+
+    // Get current count
+    let count = yesButtons.length;
+
+    for (let i = 0; i < count; i++) {
+        let clone = document.createElement("button");
+        clone.innerText = "Yes ❤️";
+        clone.className = "yes";
+        clone.onclick = forgive;
+
+        // random position
+        clone.style.position = "absolute";
+        clone.style.left = Math.random() * 90 + "%";
+        clone.style.top = Math.random() * 90 + "%";
+
+        container.appendChild(clone);
+    }
+}
+
+
+
+        function createConfetti() {
+            for (let i = 0; i < 100; i++) {
+                let c = document.createElement("div");
+                c.className = "confetti";
+                c.style.left = Math.random() * 100 + "vw";
+                c.style.background = `hsl(${Math.random() * 360},100%,50%)`;
+                document.body.appendChild(c);
+
+                setTimeout(() => c.remove(), 3000);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
