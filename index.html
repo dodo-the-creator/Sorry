@@ -153,6 +153,43 @@
             width: 180px;
             max-width: 100%;
         }
+
+        .gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+
+
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+
+        .final-card {
+    max-width: 90%;
+    padding: 25px;
+}
+
+/* Make it even bigger on mobile */
+@media (max-width: 600px) {
+    .final-card {
+        max-width: 95%;
+        padding: 20px;
+    }
+
+  .gallery img {
+    object-fit: cover;
+}
+}
+
     </style>
 </head>
 
@@ -207,8 +244,19 @@
         <!-- PAGE 4 -->
         <div class="page">
             <h2>Thank You ❤️</h2>
-            <div class="card">This means everything to me.</div>
+
+            <div class="card final-card">
+                <p>This means everything to me.</p>
+
+                <div class="gallery">
+                    <img src="pic1.PNG">
+                    <img src="DSC_6649.JPG">
+                </div>
+            </div>
         </div>
+
+    </div>
+
 
     </div>
 
@@ -228,26 +276,26 @@
         }
 
         function multiplyYes() {
-    const container = document.getElementById("buttons");
-    const yesButtons = container.querySelectorAll(".yes");
+            const container = document.getElementById("buttons");
+            const yesButtons = container.querySelectorAll(".yes");
 
-    // Get current count
-    let count = yesButtons.length;
+            // Get current count
+            let count = yesButtons.length;
 
-    for (let i = 0; i < count; i++) {
-        let clone = document.createElement("button");
-        clone.innerText = "Yes ❤️";
-        clone.className = "yes";
-        clone.onclick = forgive;
+            for (let i = 0; i < count; i++) {
+                let clone = document.createElement("button");
+                clone.innerText = "Yes ❤️";
+                clone.className = "yes";
+                clone.onclick = forgive;
 
-        // random position
-        clone.style.position = "absolute";
-        clone.style.left = Math.random() * 90 + "%";
-        clone.style.top = Math.random() * 90 + "%";
+                // random position
+                clone.style.position = "absolute";
+                clone.style.left = Math.random() * 90 + "%";
+                clone.style.top = Math.random() * 90 + "%";
 
-        container.appendChild(clone);
-    }
-}
+                container.appendChild(clone);
+            }
+        }
 
 
 
